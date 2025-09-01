@@ -1,5 +1,11 @@
 import fp from 'fastify-plugin';
-import { type AskApproach, AskRetrieveThenRead, type ChatApproach, ChatReadRetrieveRead } from '../lib/index.js';
+import {
+  type AskApproach,
+  AskRetrieveThenRead,
+  type ChatApproach,
+  ChatReadRetrieveRead,
+  ChatReadRetrieveReadCached,
+} from '../lib/index.js';
 
 export type Approaches = { chat: Record<string, ChatApproach>; ask: Record<string, AskApproach> };
 
@@ -13,6 +19,14 @@ export default fp(
     fastify.decorate('approaches', {
       chat: {
         rrr: new ChatReadRetrieveRead(
+          fastify.azure.search,
+          fastify.openai,
+          config.azureOpenAiChatGptModel,
+          config.azureOpenAiEmbeddingModel,
+          config.kbFieldsSourcePage,
+          config.kbFieldsContent,
+        ),
+        rrr_cached: new ChatReadRetrieveReadCached(
           fastify.azure.search,
           fastify.openai,
           config.azureOpenAiChatGptModel,
