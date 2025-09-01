@@ -41,15 +41,16 @@ export class ChatReadRetrieveReadCached extends ChatReadRetrieveRead {
     const result = await super.searchDocuments(query, context);
 
     if (query) {
-      this.cache.set(key, result);
+      this.cache.set(key!, result);
     }
 
     return result;
   }
 
-  private makeKey(query?: string, context?: ApproachContext): string | undefined {
+  private makeKey(query?: string, context?: ApproachContext): string | null {
     //simple key, but would like to append user id or similar for user mapping etc when ADO implimented
-    if (!query?.trim()) return undefined;
+    // eslint-disable-next-line unicorn/no-null
+    if (!query) return null;
     const normalizedQuery = query.trim();
     return JSON.stringify({ q: normalizedQuery, context });
   }
