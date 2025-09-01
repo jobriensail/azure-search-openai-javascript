@@ -3,7 +3,7 @@ import { type OpenAiService } from '../../plugins/openai.js';
 import type { ApproachContext } from './approach.js';
 import type { SearchDocumentsResult } from './approach-base.js';
 import { ChatReadRetrieveRead } from './chat-read-retrieve-read.js';
-import LRUCache from 'lru-cache';
+import { LRUCache } from 'lru-cache';
 
 export class ChatReadRetrieveReadCached extends ChatReadRetrieveRead {
   private readonly cache: LRUCache<string, SearchDocumentsResult>;
