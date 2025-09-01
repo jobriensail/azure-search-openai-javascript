@@ -14,7 +14,7 @@ test('ChatReadRetrieveReadCached caches search results', async () => {
   const approach = new ChatReadRetrieveReadCached(
     searchClient as any,
     {} as any,
-    'gpt',
+    'gpt-4',
     'embed',
     'sourcepage',
     'content',
